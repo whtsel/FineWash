@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>FineWash · Premium Car Care · GHS</title>
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Premium Color Palette - Ghana Inspired */
+      --color-bg: #faf7f2;
+      --color-surface: #ffffff;
+      --color-surface-2: #f8f4ec;
+      --color-gold-primary: #c6a34f;
+      --color-gold-light: #e5d5b3;
+      --color-gold-dark: #8b6e3a;
+      --color-charcoal: #2c2c2c;
+      --color-stone: #6b6b6b;
+      --color-stone-light: #a8a8a8;
+      --color-success: #2e7d32;
+      --color-error: #d32f2f;
+      --color-warning: #ed6c02;
+      
+      /* Ghana Flag Accent */
+      --color-ghana-red: #ef3340;
+      --color-ghana-green: #006b3f;
+      --color-ghana-yellow: #fcd116;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+      --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+      --shadow-inner: inset 0 2px 4px rgba(255, 255, 255, 0.8);
+      
+      /* Spacing */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      
+      /* Border Radius */
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 28px;
+      --radius-xl: 36px;
+      --radius-full: 9999px;
+      
+      /* Transitions */
+      --transition-fast: 0.2s ease;
+      --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-smooth: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--color-bg);
+      color: var(--color-charcoal);
+      min-height: 100vh;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    /* App Container */
+    #app {
+      max-width: 430px;
+      margin: 0 auto;
+      background: var(--color-surface);
+      min-height: 100vh;
+      position: relative;
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+    }
+
+    /* Screens (Page Transitions) */
+    .screen {
+      display: none;
+      height: 100vh;
+      overflow-y: auto;
+      padding-bottom: 90px;
+      scroll-behavior: smooth;
+      background: var(--color-bg);
+    }
+
+    .screen.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Header */
+    .app-header {
+      background: var(--color-surface);
+      padding: var(--space-lg) var(--space-lg) var(--space-md);
+      border-bottom: 1px solid rgba(198, 163, 79, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: var(--color-gold-primary);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: var(--space-md);
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition-fast);
+      position: relative;
+    }
+
+    .icon-btn:hover {
+      background: var(--color-surface-2);
+    }
+
+    .badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: var(--color-gold-primary);
+      color: white;
+      font-size: 11px;
+      font-weight: 600;
+      width: 18px;
+      height: 18px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Search Bar */
+    .search-bar {
+      margin-top: var(--space-md);
+      background: var(--color-surface-2);
+      border-radius: var(--radius-full);
+      padding: var(--space-sm) var(--space-md);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      border: 1px solid rgba(198, 163, 79, 0.2);
+    }
+
+    .search-bar input {
+      border: none;
+      background: none;
+      outline: none;
+      width: 100%;
+      font-size: 15px;
+    }
+
+    .search-bar input::placeholder {
+      color: var(--color-stone-light);
+    }
+
+    /* Greeting */
+    .greeting {
+      padding: var(--space-lg) var(--space-lg) var(--space-md);
+    }
+
+    .greeting h2 {
+      font-size: 26px;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+    }
+
+    .greeting .date {
+      color: var(--color-stone);
+      font-size: 14px;
+      margin-top: var(--space-xs);
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      padding: 0 var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .stat-card {
+      background: var(--color-surface);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(198, 163, 79, 0.1);
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--color-stone);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 600;
+      margin-top: var(--space-xs);
+      color: var(--color-gold-dark);
+    }
+
+    /* Category Tabs */
+    .category-tabs {
+      padding: 0 var(--space-lg);
+      margin-bottom: var(--space-lg);
+      display: flex;
+      gap: var(--space-sm);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .category-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-tab {
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--radius-full);
+      background: var(--color-surface);
+      border: 1px solid rgba(198, 163, 79, 0.2);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-stone);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all var(--transition-fast);
+    }
+
+    .category-tab.active {
+      background: var(--color-gold-primary);
+      color: white;
+      border-color: var(--color-gold-primary);
+    }
+
+    /* Section Header */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--space-lg);
+      margin-bottom: var(--space-md);
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+
+    .view-all {
+      color: var(--color-gold-primary);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Service Cards - Horizontal Scroll */
+    .cards-scroll {
+      display: flex;
+      gap: var(--space-md);
+      padding: 0 var(--space-lg) var(--space-lg);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .cards-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .service-card {
+      min-width: 300px;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(198, 163, 79, 0.15);
+      position: relative;
+      transition: transform var(--transition-base);
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: var(--space-md);
+      right: var(--space-md);
+      background: var(--color-gold-primary);
+      color: white;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(198, 163, 79, 0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .card-icon svg {
+      width: 28px;
+      height: 28px;
+      color: var(--color-gold-primary);
+    }
+
+    .card-title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: var(--space-xs);
+    }
+
+    .card-desc {
+      color: var(--color-stone);
+      font-size: 14px;
+      margin-bottom: var(--space-md);
+      line-height: 1.4;
+    }
+
+    /* Subscription Pricing */
+    .subscription-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-sm);
+      margin: var(--space-md) 0;
+    }
+
+    .sub-option {
+      background: rgba(198, 163, 79, 0.05);
+      border-radius: var(--radius-sm);
+      padding: var(--space-sm);
+      text-align: center;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all var(--transition-fast);
+    }
+
+    .sub-option.selected {
+      border-color: var(--color-gold-primary);
+      background: rgba(198, 163, 79, 0.1);
+    }
+
+    .sub-frequency {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-charcoal);
+    }
+
+    .sub-price {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-gold-dark);
+      margin: 4px 0;
+    }
+
+    .sub-price small {
+      font-size: 11px;
+      color: var(--color-stone);
+    }
+
+    .sub-savings {
+      font-size: 11px;
+      color: var(--color-success);
+      font-weight: 600;
+    }
+
+    .card-price {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--color-gold-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    .card-price small {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--color-stone-light);
+    }
+
+    .card-features {
+      list-style: none;
+      margin-bottom: var(--space-lg);
+    }
+
+    .card-features li {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-size: 14px;
+      margin-bottom: var(--space-sm);
+    }
+
+    .card-features svg {
+      width: 16px;
+      height: 16px;
+      color: var(--color-gold-primary);
+    }
+
+    .btn {
+      width: 100%;
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: none;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      background: var(--color-gold-primary);
+      color: white;
+    }
+
+    .btn:hover {
+      background: var(--color-gold-dark);
+      transform: scale(0.98);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--color-gold-primary);
+      color: var(--color-gold-primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--color-gold-primary);
+      color: white;
+    }
+
+    /* Booking History */
+    .booking-item {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin: 0 var(--space-lg) var(--space-md);
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(198, 163, 79, 0.1);
+    }
+
+    .booking-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(198, 163, 79, 0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .booking-details {
+      flex: 1;
+    }
+
+    .booking-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .booking-meta {
+      font-size: 13px;
+      color: var(--color-stone);
+      display: flex;
+      gap: var(--space-sm);
+    }
+
+    .booking-status {
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-active {
+      background: rgba(46, 125, 50, 0.1);
+      color: var(--color-success);
+    }
+
+    .status-pending {
+      background: rgba(237, 108, 2, 0.1);
+      color: var(--color-warning);
+    }
+
+    .status-completed {
+      background: rgba(198, 163, 79, 0.1);
+      color: var(--color-gold-dark);
+    }
+
+    /* Profile Screen */
+    .profile-header {
+      background: linear-gradient(135deg, var(--color-gold-primary) 0%, var(--color-gold-dark) 100%);
+      padding: var(--space-xl) var(--space-lg);
+      color: white;
+      text-align: center;
+    }
+
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: var(--radius-full);
+      border: 4px solid white;
+      margin: 0 auto var(--space-md);
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-name {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: var(--space-xs);
+    }
+
+    .profile-email {
+      opacity: 0.9;
+      font-size: 14px;
+    }
+
+    .profile-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-md);
+      padding: var(--space-lg);
+      background: var(--color-surface);
+      margin: var(--space-lg);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+    }
+
+    .profile-stat {
+      text-align: center;
+    }
+
+    .profile-stat-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-gold-dark);
+    }
+
+    .profile-stat-label {
+      font-size: 12px;
+      color: var(--color-stone);
+      margin-top: 4px;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md) var(--space-lg);
+      background: var(--color-surface);
+      margin: 0 var(--space-lg) var(--space-sm);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background var(--transition-fast);
+      border: 1px solid rgba(198, 163, 79, 0.1);
+    }
+
+    .menu-item:hover {
+      background: var(--color-surface-2);
+    }
+
+    .menu-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(198, 163, 79, 0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-content {
+      flex: 1;
+    }
+
+    .menu-title {
+      font-weight: 600;
+    }
+
+    .menu-subtitle {
+      font-size: 12px;
+      color: var(--color-stone);
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(198, 163, 79, 0.2);
+      display: flex;
+      justify-content: space-around;
+      padding: var(--space-sm) 0;
+      z-index: 100;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--radius-full);
+      transition: all var(--transition-fast);
+      color: var(--color-stone);
+    }
+
+    .nav-item.active {
+      color: var(--color-gold-primary);
+      background: rgba(198, 163, 79, 0.1);
+    }
+
+    .nav-item svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .nav-item span {
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      z-index: 200;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-sheet {
+      background: var(--color-surface);
+      width: 100%;
+      max-width: 430px;
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+      padding: var(--space-xl);
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.active .modal-sheet {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-lg);
+    }
+
+    .modal-title {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--color-stone);
+    }
+
+    /* Subscription Options in Modal */
+    .subscription-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-sm);
+      margin: var(--space-lg) 0;
+    }
+
+    .sub-card {
+      background: rgba(198, 163, 79, 0.05);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      text-align: center;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all var(--transition-fast);
+    }
+
+    .sub-card.selected {
+      border-color: var(--color-gold-primary);
+      background: rgba(198, 163, 79, 0.1);
+    }
+
+    .sub-card .frequency {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-charcoal);
+    }
+
+    .sub-card .price {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--color-gold-dark);
+      margin: 8px 0;
+    }
+
+    .sub-card .price small {
+      font-size: 12px;
+      color: var(--color-stone);
+    }
+
+    .sub-card .savings {
+      font-size: 12px;
+      color: var(--color-success);
+      font-weight: 600;
+    }
+
+    .sub-card .duration {
+      font-size: 12px;
+      color: var(--color-stone);
+      margin-top: 8px;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-gold-dark);
+      color: white;
+      padding: var(--space-md) var(--space-xl);
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-lg);
+      z-index: 300;
+      display: none;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+      to { transform: translateX(-50%) translateY(0); opacity: 1; }
+    }
+
+    /* Notification Drawer */
+    .drawer {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      max-width: 430px;
+      height: 100vh;
+      background: var(--color-surface);
+      z-index: 150;
+      transition: right 0.3s ease;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .drawer.open {
+      right: 0;
+    }
+
+    .drawer-header {
+      padding: var(--space-xl) var(--space-lg);
+      background: linear-gradient(135deg, var(--color-gold-primary) 0%, var(--color-gold-dark) 100%);
+      color: white;
+    }
+
+    .drawer-content {
+      padding: var(--space-lg);
+      overflow-y: auto;
+      height: calc(100vh - 120px);
+    }
+
+    .notification-item {
+      padding: var(--space-md);
+      border-bottom: 1px solid rgba(198,163,79,0.1);
+      cursor: pointer;
+      transition: background var(--transition-fast);
+    }
+
+    .notification-item:hover {
+      background: rgba(198,163,79,0.05);
+    }
+
+    .notification-item.unread {
+      background: rgba(198,163,79,0.1);
+    }
+
+    /* Loading Skeleton */
+    .skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+    }
+
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Currency Symbol */
+    .currency {
+      font-size: 0.8em;
+      margin-right: 2px;
+    }
+
+    /* Utility Classes */
+    .hidden { display: none; }
+    .mt-4 { margin-top: var(--space-md); }
+    .mb-4 { margin-bottom: var(--space-md); }
+    .text-center { text-align: center; }
+    .text-gold { color: var(--color-gold-primary); }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- Loading Screen -->
+    <div id="loadingScreen" style="display: flex; position: fixed; inset: 0; background: var(--color-bg); z-index: 1000; align-items: center; justify-content: center;">
+      <div style="text-align: center;">
+        <div style="font-family: 'Playfair Display', serif; font-size: 48px; margin-bottom: 20px;">Fine<span style="color: var(--color-gold-primary);">Wash</span></div>
+        <div style="width: 200px; height: 4px; background: #e0e0e0; border-radius: 2px; margin: 20px auto;">
+          <div id="loadingBar" style="width: 0%; height: 100%; background: var(--color-gold-primary); border-radius: 2px; transition: width 0.3s;"></div>
+        </div>
+        <div style="color: var(--color-stone);">Preparing your luxury experience...</div>
+      </div>
+    </div>
+
+    <!-- Main Screens -->
+    <!-- Home Screen -->
+    <div id="homeScreen" class="screen active">
+      <div class="app-header">
+        <div class="header-content">
+          <div class="logo">Fine<span>Wash</span></div>
+          <div class="header-actions">
+            <button class="icon-btn" onclick="showScreen('profileScreen')">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </button>
+            <button class="icon-btn" onclick="toggleDrawer()">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <span class="badge" id="notificationBadge">3</span>
+            </button>
+          </div>
+        </div>
+        <div class="search-bar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" placeholder="Search services...">
+        </div>
+      </div>
+
+      <div class="greeting">
+        <h2>Good evening, Kwame</h2>
+        <div class="date">Thursday, February 27, 2026 · Accra</div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Active Plan</div>
+          <div class="stat-value">Weekly</div>
+          <div style="font-size: 13px; margin-top: 4px;">2 washes/week · ₵100</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Next Wash</div>
+          <div class="stat-value">Tomorrow</div>
+          <div style="font-size: 13px; margin-top: 4px;">10:30 AM · Premium</div>
+        </div>
+      </div>
+
+      <div class="category-tabs">
+        <div class="category-tab active" onclick="filterServices('all')">All Plans</div>
+        <div class="category-tab" onclick="filterServices('single')">Single</div>
+        <div class="category-tab" onclick="filterServices('weekly')">Weekly</div>
+        <div class="category-tab" onclick="filterServices('biweekly')">Bi-Weekly</div>
+        <div class="category-tab" onclick="filterServices('monthly')">Monthly</div>
+      </div>
+
+      <div class="section-header">
+        <h3 class="section-title">Subscription Plans</h3>
+        <a class="view-all" onclick="showAllPlans()">Compare All</a>
+      </div>
+
+      <div class="cards-scroll" id="serviceCards">
+        <!-- Dynamically populated -->
+      </div>
+
+      <div class="section-header" style="margin-top: var(--space-lg);">
+        <h3 class="section-title">Your Subscriptions</h3>
+        <a class="view-all" onclick="showScreen('bookingsScreen')">View All</a>
+      </div>
+
+      <div id="recentBookings">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+
+    <!-- Bookings Screen -->
+    <div id="bookingsScreen" class="screen">
+      <div class="app-header">
+        <div class="header-content">
+          <button class="icon-btn" onclick="showScreen('homeScreen')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+          </button>
+          <div class="logo">My<span>Subscriptions</span></div>
+          <div class="header-actions">
+            <button class="icon-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polygon points="5 11 12 4 19 11"></polygon>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-tabs" style="margin-top: var(--space-md);">
+        <div class="category-tab active" onclick="filterBookings('active')">Active</div>
+        <div class="category-tab" onclick="filterBookings('pending')">Pending</div>
+        <div class="category-tab" onclick="filterBookings('completed')">Completed</div>
+      </div>
+
+      <div id="bookingsList" style="padding-bottom: var(--space-lg);">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+
+    <!-- Profile Screen -->
+    <div id="profileScreen" class="screen">
+      <div class="profile-header">
+        <button class="icon-btn" onclick="showScreen('homeScreen')" style="position: absolute; top: 20px; left: 20px; color: white;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <div class="profile-avatar">
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold-primary)" stroke-width="1">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <div class="profile-name">Kwame Mensah</div>
+        <div class="profile-email">kwame.mensah@example.com</div>
+      </div>
+
+      <div class="profile-stats">
+        <div class="profile-stat">
+          <div class="profile-stat-value">Weekly</div>
+          <div class="profile-stat-label">Current Plan</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-value">₵100</div>
+          <div class="profile-stat-label">Monthly Spend</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-value">Gold</div>
+          <div class="profile-stat-label">Status</div>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold-primary)" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+        </div>
+        <div class="menu-content">
+          <div class="menu-title">Subscription History</div>
+          <div class="menu-subtitle">View all your plans</div>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold-primary)" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <div class="menu-content">
+          <div class="menu-title">Payment Methods</div>
+          <div class="menu-subtitle">•••• 4242 · Mobile Money</div>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold-primary)" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
+        <div class="menu-content">
+          <div class="menu-title">Loyalty Program</div>
+          <div class="menu-subtitle">Gold Member · 1,250 points</div>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold-primary)" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </div>
+        <div class="menu-content">
+          <div class="menu-title">Settings</div>
+          <div class="menu-subtitle">Notifications, privacy, help</div>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+      <div class="nav-item active" onclick="showScreen('homeScreen')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </div>
+      <div class="nav-item" onclick="showScreen('bookingsScreen')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        <span>Plans</span>
+      </div>
+      <div class="nav-item" onclick="openBookingFlow()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="16"></line>
+          <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+        <span>Subscribe</span>
+      </div>
+      <div class="nav-item" onclick="showScreen('profileScreen')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <span>Profile</span>
+      </div>
+    </nav>
+
+    <!-- Booking Modal with Subscription Options -->
+    <div id="bookingModal" class="modal-overlay">
+      <div class="modal-sheet">
+        <div class="modal-header">
+          <h3 class="modal-title" id="modalServiceName">Choose Your Plan</h3>
+          <button class="close-btn" onclick="closeModal()">×</button>
+        </div>
+        
+        <div style="margin-bottom: var(--space-lg);">
+          <div style="font-weight: 600; margin-bottom: var(--space-md);">Select Frequency</div>
+          <div class="subscription-options">
+            <div class="sub-card" onclick="selectSubscription('single')" id="sub-single">
+              <div class="frequency">Single Wash</div>
+              <div class="price"><span class="currency">₵</span>60</div>
+              <div class="savings">One-time</div>
+              <div class="duration">1 wash</div>
+            </div>
+            <div class="sub-card" onclick="selectSubscription('weekly')" id="sub-weekly">
+              <div class="frequency">Weekly</div>
+              <div class="price"><span class="currency">₵</span>100</div>
+              <div class="savings">Save 17%</div>
+              <div class="duration">2 washes/week</div>
+            </div>
+            <div class="sub-card" onclick="selectSubscription('biweekly')" id="sub-biweekly">
+              <div class="frequency">Bi-Weekly</div>
+              <div class="price"><span class="currency">₵</span>180</div>
+              <div class="savings">Save 25%</div>
+              <div class="duration">4 washes</div>
+            </div>
+            <div class="sub-card" onclick="selectSubscription('monthly')" id="sub-monthly">
+              <div class="frequency">Monthly</div>
+              <div class="price"><span class="currency">₵</span>350</div>
+              <div class="savings">Save 51%</div>
+              <div class="duration">8 washes/month</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: var(--space-lg);">
+          <div style="font-weight: 600; margin-bottom: var(--space-sm);">Service Type</div>
+          <select style="width: 100%; padding: var(--space-md); border-radius: var(--radius-md); border: 1px solid rgba(198,163,79,0.3); background: white;" id="serviceType">
+            <option value="basic">Basic Wash</option>
+            <option value="premium" selected>Premium Wash</option>
+            <option value="deluxe">Deluxe Detail</option>
+          </select>
+        </div>
+
+        <div style="background: rgba(198,163,79,0.1); padding: var(--space-md); border-radius: var(--radius-md); margin-bottom: var(--space-lg);">
+          <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-sm);">
+            <span>Total (monthly)</span>
+            <span style="font-weight: 700; font-size: 20px;" id="modalTotalPrice">₵350</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 14px; color: var(--color-stone);">
+            <span>Washes per month</span>
+            <span id="washesPerMonth">8 washes</span>
+          </div>
+        </div>
+
+        <button class="btn" onclick="confirmBooking()">Confirm Subscription</button>
+        <p style="text-align: center; font-size: 12px; color: var(--color-stone); margin-top: var(--space-md);">
+          Cancel anytime · No commitment
+        </p>
+      </div>
+    </div>
+
+    <!-- Notification Drawer -->
+    <div id="notificationDrawer" class="drawer">
+      <div class="drawer-header">
+        <h3 style="font-size: 20px;">Notifications</h3>
+        <button class="close-btn" onclick="toggleDrawer()" style="color: white;">×</button>
+      </div>
+      <div class="drawer-content" id="notificationList">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast">Subscription confirmed!</div>
+  </div>
+
+  <script>
+    // App State
+    let currentSubscription = 'monthly';
+    let notifications = [
+      { id: 1, title: 'Weekly Plan Activated', message: 'Your weekly subscription is now active. First wash tomorrow!', time: '10 min ago', read: false },
+      { id: 2, title: 'Payment Successful', message: 'Payment of ₵100 for Weekly Plan completed', time: '1 hour ago', read: false },
+      { id: 3, title: 'Special Offer', message: 'Upgrade to Monthly and save 51%', time: '2 hours ago', read: false },
+      { id: 4, title: 'Reminder', message: 'Your car wash is tomorrow at 10:30 AM', time: '5 hours ago', read: true }
+    ];
+
+    // Subscription Plans Data
+    const plans = [
+      {
+        id: 1,
+        name: 'Single Wash',
+        category: 'single',
+        description: 'One-time premium wash',
+        price: 60,
+        frequency: 'one-time',
+        washes: 1,
+        savings: 0,
+        features: ['Premium hand wash', 'Tire shine', 'Interior wipe-down', 'Window cleaning']
+      },
+      {
+        id: 2,
+        name: 'Weekly Plan',
+        category: 'weekly',
+        description: '2 washes per week',
+        price: 100,
+        frequency: 'weekly',
+        washes: 8,
+        savings: 17,
+        features: ['2 premium washes/week', 'Priority scheduling', 'Free tire shine', 'Loyalty points'],
+        badge: 'POPULAR'
+      },
+      {
+        id: 3,
+        name: 'Bi-Weekly Plan',
+        category: 'biweekly',
+        description: '4 washes every two weeks',
+        price: 180,
+        frequency: 'biweekly',
+        washes: 8,
+        savings: 25,
+        features: ['4 premium washes', 'Flexible scheduling', 'Interior protection', 'VIP support'],
+        badge: 'BEST VALUE'
+      },
+      {
+        id: 4,
+        name: 'Monthly Plan',
+        category: 'monthly',
+        description: '8 washes per month',
+        price: 350,
+        frequency: 'monthly',
+        washes: 8,
+        savings: 51,
+        features: ['8 premium washes', 'Ceramic coating', 'Full interior detail', 'Mobile money'],
+        badge: 'SAVE 51%'
+      }
+    ];
+
+    const subscriptions = [
+      { id: 1, plan: 'Weekly Plan', status: 'active', nextWash: 'Tomorrow, 10:30 AM', price: 100, icon: 'weekly' },
+      { id: 2, plan: 'Single Wash', status: 'completed', date: 'Feb 25, 10:00 AM', price: 60, icon: 'single' },
+      { id: 3, plan: 'Monthly Plan', status: 'pending', startDate: 'Mar 1', price: 350, icon: 'monthly' }
+    ];
+
+    // Loading Simulation
+    let loadingProgress = 0;
+    const loadingInterval = setInterval(() => {
+      loadingProgress += 10;
+      document.getElementById('loadingBar').style.width = loadingProgress + '%';
+      if (loadingProgress >= 100) {
+        clearInterval(loadingInterval);
+        setTimeout(() => {
+          document.getElementById('loadingScreen').style.display = 'none';
+        }, 500);
+      }
+    }, 100);
+
+    // Initialize App
+    function initApp() {
+      renderPlans();
+      renderRecentSubscriptions();
+      renderSubscriptionsList();
+      renderNotifications();
+      updateNotificationBadge();
+    }
+
+    // Render Plans
+    function renderPlans(filter = 'all') {
+      const container = document.getElementById('serviceCards');
+      const filtered = filter === 'all' ? plans : plans.filter(p => p.category === filter);
+      
+      container.innerHTML = filtered.map(plan => `
+        <div class="service-card" onclick="selectPlan(${plan.id})">
+          ${plan.badge ? `<span class="card-badge">${plan.badge}</span>` : ''}
+          <div class="card-icon">
+            ${getPlanIcon(plan.category)}
+          </div>
+          <div class="card-title">${plan.name}</div>
+          <div class="card-desc">${plan.description}</div>
+          <div class="card-price">₵${plan.price} <small>/${plan.frequency}</small></div>
+          
+          <div class="subscription-grid">
+            <div class="sub-option" onclick="event.stopPropagation()">
+              <div class="sub-frequency">Washes</div>
+              <div class="sub-price">${plan.washes}/mo</div>
+            </div>
+            <div class="sub-option" onclick="event.stopPropagation()">
+              <div class="sub-frequency">Savings</div>
+              <div class="sub-price">${plan.savings}%</div>
+            </div>
+          </div>
+
+          <ul class="card-features">
+            ${plan.features.slice(0, 2).map(f => `
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                ${f}
+              </li>
+            `).join('')}
+          </ul>
+          <button class="btn" onclick="event.stopPropagation(); openBookingModal('${plan.name}')">Subscribe</button>
+        </div>
+      `).join('');
+    }
+
+    // Get Plan Icon
+    function getPlanIcon(category) {
+      const icons = {
+        single: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+        weekly: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+        biweekly: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-4.5A2.5 2.5 0 0 0 13 9.5v0A2.5 2.5 0 0 0 15.5 12H18"/><path d="M18 12h-2.5A2.5 2.5 0 0 0 13 14.5v0A2.5 2.5 0 0 0 15.5 17H20"/><rect x="3" y="4" width="18" height="18" rx="2"/></svg>',
+        monthly: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>'
+      };
+      return icons[category] || icons.single;
+    }
+
+    // Render Recent Subscriptions
+    function renderRecentSubscriptions() {
+      const container = document.getElementById('recentBookings');
+      const recent = subscriptions.slice(0, 2);
+      
+      container.innerHTML = recent.map(sub => `
+        <div class="booking-item">
+          <div class="booking-icon">
+            ${getPlanIcon(sub.icon)}
+          </div>
+          <div class="booking-details">
+            <div class="booking-title">${sub.plan}</div>
+            <div class="booking-meta">
+              <span>${sub.nextWash || sub.date || sub.startDate}</span>
+              <span>₵${sub.price}</span>
+            </div>
+          </div>
+          <span class="booking-status status-${sub.status}">${sub.status}</span>
+        </div>
+      `).join('');
+    }
+
+    // Render Subscriptions List
+    function renderSubscriptionsList(filter = 'active') {
+      const container = document.getElementById('bookingsList');
+      const filtered = filter === 'active' ? subscriptions.filter(s => s.status === 'active') : 
+                       filter === 'pending' ? subscriptions.filter(s => s.status === 'pending') :
+                       subscriptions.filter(s => s.status === 'completed');
+      
+      container.innerHTML = filtered.length ? filtered.map(sub => `
+        <div class="booking-item">
+          <div class="booking-icon">
+            ${getPlanIcon(sub.icon)}
+          </div>
+          <div class="booking-details">
+            <div class="booking-title">${sub.plan}</div>
+            <div class="booking-meta">
+              <span>${sub.nextWash || sub.date || sub.startDate}</span>
+              <span>₵${sub.price}</span>
+            </div>
+          </div>
+          <span class="booking-status status-${sub.status}">${sub.status}</span>
+        </div>
+      `).join('') : '<div style="text-align: center; padding: 40px; color: var(--color-stone);">No subscriptions found</div>';
+    }
+
+    // Render Notifications
+    function renderNotifications() {
+      const container = document.getElementById('notificationList');
+      container.innerHTML = notifications.map(n => `
+        <div class="notification-item ${n.read ? '' : 'unread'}" onclick="markNotificationRead(${n.id})">
+          <div style="font-weight: 600; margin-bottom: 4px;">${n.title}</div>
+          <div style="font-size: 14px; color: var(--color-stone); margin-bottom: 8px;">${n.message}</div>
+          <div style="font-size: 12px; color: var(--color-gold-primary);">${n.time}</div>
+        </div>
+      `).join('');
+    }
+
+    // Update Notification Badge
+    function updateNotificationBadge() {
+      const unread = notifications.filter(n => !n.read).length;
+      document.getElementById('notificationBadge').textContent = unread;
+    }
+
+    // Mark Notification Read
+    function markNotificationRead(id) {
+      notifications = notifications.map(n => n.id === id ? { ...n, read: true } : n);
+      renderNotifications();
+      updateNotificationBadge();
+    }
+
+    // Screen Navigation
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+      
+      // Update bottom nav
+      document.querySelectorAll('.nav-item').forEach((item, index) => {
+        item.classList.toggle('active', 
+          (screenId === 'homeScreen' && index === 0) ||
+          (screenId === 'bookingsScreen' && index === 1) ||
+          (screenId === 'profileScreen' && index === 3)
+        );
+      });
+    }
+
+    // Filter Plans
+    function filterServices(category) {
+      document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active'));
+      event.target.classList.add('active');
+      renderPlans(category);
+    }
+
+    // Filter Bookings
+    function filterBookings(filter) {
+      document.querySelectorAll('#bookingsScreen .category-tab').forEach(tab => tab.classList.remove('active'));
+      event.target.classList.add('active');
+      renderSubscriptionsList(filter);
+    }
+
+    // Select Plan
+    function selectPlan(planId) {
+      const plan = plans.find(p => p.id === planId);
+      openBookingModal(plan.name);
+    }
+
+    // Show All Plans
+    function showAllPlans() {
+      filterServices('all');
+    }
+
+    // Subscription Selection in Modal
+    function selectSubscription(type) {
+      currentSubscription = type;
+      
+      // Update UI
+      document.querySelectorAll('.sub-card').forEach(card => card.classList.remove('selected'));
+      document.getElementById(`sub-${type}`).classList.add('selected');
+      
+      // Update price display
+      const prices = { single: 60, weekly: 100, biweekly: 180, monthly: 350 };
+      const washes = { single: '1 wash', weekly: '8 washes/month', biweekly: '4 washes', monthly: '8 washes/month' };
+      
+      document.getElementById('modalTotalPrice').innerHTML = `₵${prices[type]}`;
+      document.getElementById('washesPerMonth').innerText = washes[type];
+    }
+
+    // Booking Modal
+    function openBookingModal(planName) {
+      document.getElementById('modalServiceName').textContent = `Subscribe to ${planName}`;
+      document.getElementById('bookingModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('bookingModal').classList.remove('active');
+    }
+
+    // Open Booking Flow from FAB
+    function openBookingFlow() {
+      openBookingModal('Weekly Plan');
+    }
+
+    // Confirm Booking
+    function confirmBooking() {
+      closeModal();
+      showToast('Subscription activated! Check your notifications.');
+      
+      // Add notification
+      const prices = { single: 60, weekly: 100, biweekly: 180, monthly: 350 };
+      const planNames = { single: 'Single Wash', weekly: 'Weekly Plan', biweekly: 'Bi-Weekly Plan', monthly: 'Monthly Plan' };
+      
+      notifications.unshift({
+        id: Date.now(),
+        title: 'Subscription Activated',
+        message: `Your ${planNames[currentSubscription]} has been activated`,
+        time: 'Just now',
+        read: false
+      });
+      renderNotifications();
+      updateNotificationBadge();
+    }
+
+    // Show Toast
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3000);
+    }
+
+    // Toggle Notification Drawer
+    function toggleDrawer() {
+      document.getElementById('notificationDrawer').classList.toggle('open');
+    }
+
+    // Close drawer when clicking outside
+    document.addEventListener('click', function(e) {
+      const drawer = document.getElementById('notificationDrawer');
+      const bellBtn = e.target.closest('.icon-btn');
+      if (!drawer.contains(e.target) && !bellBtn && drawer.classList.contains('open')) {
+        drawer.classList.remove('open');
+      }
+    });
+
+    // Initialize app
+    setTimeout(initApp, 1000);
+  </script>
+</body>
+</html>
