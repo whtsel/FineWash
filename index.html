@@ -869,6 +869,13 @@
       margin-right: 2px;
     }
 
+    /* No Results */
+    .no-results {
+      text-align: center;
+      padding: 40px var(--space-lg);
+      color: var(--color-stone);
+    }
+
     /* Utility Classes */
     .hidden { display: none; }
     .mt-4 { margin-top: var(--space-md); }
@@ -917,7 +924,7 @@
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input type="text" placeholder="Search services...">
+          <input type="text" id="searchInput" placeholder="Search plans..." onkeyup="searchPlans()">
         </div>
       </div>
 
@@ -1177,14 +1184,14 @@
           </select>
         </div>
 
-        <div style="background: rgba(198,163,79,0.1); padding: var(--space-md); border-radius: var(--radius-md); margin-bottom: var(--space-lg);">
+        <div style="background: rgba(198,163,79,0.1); padding: var(--space-md); border-radius: var(--radius-md); margin-bottom: var(--space-lg);" id="priceSummary">
           <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-sm);">
-            <span>Total (monthly)</span>
+            <span>Total</span>
             <span style="font-weight: 700; font-size: 20px;" id="modalTotalPrice">₵350</span>
           </div>
-          <div style="display: flex; justify-content: space-between; font-size: 14px; color: var(--color-stone);">
-            <span>Washes per month</span>
-            <span id="washesPerMonth">8 washes</span>
+          <div style="display: flex; justify-content: space-between; font-size: 14px; color: var(--color-stone);" id="washSummary">
+            <span>Washes</span>
+            <span>8 washes/month</span>
           </div>
         </div>
 
@@ -1213,6 +1220,9 @@
   <script>
     // App State
     let currentSubscription = 'monthly';
+    let currentFilter = 'all';
+    let searchTerm = '';
+    
     let notifications = [
       { id: 1, title: 'Weekly Plan Activated', message: 'Your weekly subscription is now active. First wash tomorrow!', time: '10 min ago', read: false },
       { id: 2, title: 'Payment Successful', message: 'Payment of ₵100 for Weekly Plan completed', time: '1 hour ago', read: false },
@@ -1220,7 +1230,7 @@
       { id: 4, title: 'Reminder', message: 'Your car wash is tomorrow at 10:30 AM', time: '5 hours ago', read: true }
     ];
 
-    // Subscription Plans Data
+    // Subscription Plans Data - FIXED WASH COUNTS
     const plans = [
       {
         id: 1,
@@ -1230,6 +1240,7 @@
         price: 60,
         frequency: 'one-time',
         washes: 1,
+        washesText: '1 wash',
         savings: 0,
         features: ['Premium hand wash', 'Tire shine', 'Interior wipe-down', 'Window cleaning']
       },
@@ -1241,6 +1252,7 @@
         price: 100,
         frequency: 'weekly',
         washes: 8,
+        washesText: '2 washes/week',
         savings: 17,
         features: ['2 premium washes/week', 'Priority scheduling', 'Free tire shine', 'Loyalty points'],
         badge: 'POPULAR'
@@ -1252,7 +1264,8 @@
         description: '4 washes every two weeks',
         price: 180,
         frequency: 'biweekly',
-        washes: 8,
+        washes: 4,
+        washesText: '4 washes',
         savings: 25,
         features: ['4 premium washes', 'Flexible scheduling', 'Interior protection', 'VIP support'],
         badge: 'BEST VALUE'
@@ -1265,6 +1278,7 @@
         price: 350,
         frequency: 'monthly',
         washes: 8,
+        washesText: '8 washes/month',
         savings: 51,
         features: ['8 premium washes', 'Ceramic coating', 'Full interior detail', 'Mobile money'],
         badge: 'SAVE 51%'
@@ -1297,12 +1311,39 @@
       renderSubscriptionsList();
       renderNotifications();
       updateNotificationBadge();
+      
+      // Set monthly as default selected in modal
+      setTimeout(() => {
+        selectSubscription('monthly');
+      }, 100);
     }
 
-    // Render Plans
-    function renderPlans(filter = 'all') {
+    // Render Plans with Search and Filter
+    function renderPlans() {
       const container = document.getElementById('serviceCards');
-      const filtered = filter === 'all' ? plans : plans.filter(p => p.category === filter);
+      
+      // Apply both filter and search
+      let filtered = plans;
+      
+      // Apply category filter
+      if (currentFilter !== 'all') {
+        filtered = filtered.filter(p => p.category === currentFilter);
+      }
+      
+      // Apply search
+      if (searchTerm.trim() !== '') {
+        const term = searchTerm.toLowerCase();
+        filtered = filtered.filter(p => 
+          p.name.toLowerCase().includes(term) || 
+          p.description.toLowerCase().includes(term) ||
+          p.features.some(f => f.toLowerCase().includes(term))
+        );
+      }
+      
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="no-results">✨ No plans found matching your search</div>';
+        return;
+      }
       
       container.innerHTML = filtered.map(plan => `
         <div class="service-card" onclick="selectPlan(${plan.id})">
@@ -1317,7 +1358,7 @@
           <div class="subscription-grid">
             <div class="sub-option" onclick="event.stopPropagation()">
               <div class="sub-frequency">Washes</div>
-              <div class="sub-price">${plan.washes}/mo</div>
+              <div class="sub-price">${plan.washesText}</div>
             </div>
             <div class="sub-option" onclick="event.stopPropagation()">
               <div class="sub-frequency">Savings</div>
@@ -1338,6 +1379,12 @@
           <button class="btn" onclick="event.stopPropagation(); openBookingModal('${plan.name}')">Subscribe</button>
         </div>
       `).join('');
+    }
+
+    // Search Function
+    function searchPlans() {
+      searchTerm = document.getElementById('searchInput').value;
+      renderPlans();
     }
 
     // Get Plan Icon
@@ -1422,7 +1469,7 @@
       updateNotificationBadge();
     }
 
-    // Screen Navigation
+    // Screen Navigation - Always falls back to home
     function showScreen(screenId) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(screenId).classList.add('active');
@@ -1439,9 +1486,10 @@
 
     // Filter Plans
     function filterServices(category) {
+      currentFilter = category;
       document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active'));
       event.target.classList.add('active');
-      renderPlans(category);
+      renderPlans();
     }
 
     // Filter Bookings
@@ -1459,7 +1507,10 @@
 
     // Show All Plans
     function showAllPlans() {
-      filterServices('all');
+      currentFilter = 'all';
+      document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelector('.category-tab').classList.add('active');
+      renderPlans();
     }
 
     // Subscription Selection in Modal
@@ -1470,12 +1521,19 @@
       document.querySelectorAll('.sub-card').forEach(card => card.classList.remove('selected'));
       document.getElementById(`sub-${type}`).classList.add('selected');
       
-      // Update price display
-      const prices = { single: 60, weekly: 100, biweekly: 180, monthly: 350 };
-      const washes = { single: '1 wash', weekly: '8 washes/month', biweekly: '4 washes', monthly: '8 washes/month' };
+      // Update price and wash display based on selection
+      const planData = {
+        single: { price: 60, washes: '1 wash', desc: 'One-time' },
+        weekly: { price: 100, washes: '2 washes/week', desc: 'Weekly' },
+        biweekly: { price: 180, washes: '4 washes', desc: 'Bi-Weekly' },
+        monthly: { price: 350, washes: '8 washes/month', desc: 'Monthly' }
+      };
       
-      document.getElementById('modalTotalPrice').innerHTML = `₵${prices[type]}`;
-      document.getElementById('washesPerMonth').innerText = washes[type];
+      document.getElementById('modalTotalPrice').innerHTML = `₵${planData[type].price}`;
+      document.getElementById('washSummary').innerHTML = `
+        <span>Washes</span>
+        <span>${planData[type].washes}</span>
+      `;
     }
 
     // Booking Modal
@@ -1499,7 +1557,6 @@
       showToast('Subscription activated! Check your notifications.');
       
       // Add notification
-      const prices = { single: 60, weekly: 100, biweekly: 180, monthly: 350 };
       const planNames = { single: 'Single Wash', weekly: 'Weekly Plan', biweekly: 'Bi-Weekly Plan', monthly: 'Monthly Plan' };
       
       notifications.unshift({
