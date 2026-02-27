@@ -7,7 +7,7 @@
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <style>
-    /* Reset & Base */
+    /* (Keep all existing styles exactly as in your last code) */
     * {
       margin: 0;
       padding: 0;
@@ -15,7 +15,6 @@
     }
 
     :root {
-      /* Premium Color Palette - Ghana Inspired */
       --color-bg: #faf7f2;
       --color-surface: #ffffff;
       --color-surface-2: #f8f4ec;
@@ -28,35 +27,25 @@
       --color-success: #2e7d32;
       --color-error: #d32f2f;
       --color-warning: #ed6c02;
-      
-      /* Ghana Flag Accent */
       --color-ghana-red: #ef3340;
       --color-ghana-green: #006b3f;
       --color-ghana-yellow: #fcd116;
-      
-      /* Shadows */
       --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
       --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
       --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
       --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
       --shadow-inner: inset 0 2px 4px rgba(255, 255, 255, 0.8);
-      
-      /* Spacing */
       --space-xs: 4px;
       --space-sm: 8px;
       --space-md: 16px;
       --space-lg: 24px;
       --space-xl: 32px;
       --space-2xl: 48px;
-      
-      /* Border Radius */
       --radius-sm: 12px;
       --radius-md: 20px;
       --radius-lg: 28px;
       --radius-xl: 36px;
       --radius-full: 9999px;
-      
-      /* Transitions */
       --transition-fast: 0.2s ease;
       --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       --transition-smooth: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -71,7 +60,6 @@
       line-height: 1.5;
     }
 
-    /* App Container */
     #app {
       max-width: 430px;
       margin: 0 auto;
@@ -82,7 +70,6 @@
       overflow: hidden;
     }
 
-    /* Screens (Page Transitions) */
     .screen {
       display: none;
       height: 100vh;
@@ -102,7 +89,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Header */
     .app-header {
       background: var(--color-surface);
       padding: var(--space-lg) var(--space-lg) var(--space-md);
@@ -170,7 +156,6 @@
       justify-content: center;
     }
 
-    /* Search Bar */
     .search-bar {
       margin-top: var(--space-md);
       background: var(--color-surface-2);
@@ -194,7 +179,6 @@
       color: var(--color-stone-light);
     }
 
-    /* Greeting */
     .greeting {
       padding: var(--space-lg) var(--space-lg) var(--space-md);
     }
@@ -211,7 +195,6 @@
       margin-top: var(--space-xs);
     }
 
-    /* Stats Cards */
     .stats-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -242,7 +225,6 @@
       color: var(--color-gold-dark);
     }
 
-    /* Category Tabs */
     .category-tabs {
       padding: 0 var(--space-lg);
       margin-bottom: var(--space-lg);
@@ -275,7 +257,6 @@
       border-color: var(--color-gold-primary);
     }
 
-    /* Section Header */
     .section-header {
       display: flex;
       align-items: center;
@@ -298,7 +279,6 @@
       cursor: pointer;
     }
 
-    /* Service Cards - Horizontal Scroll */
     .cards-scroll {
       display: flex;
       gap: var(--space-md);
@@ -369,7 +349,6 @@
       line-height: 1.4;
     }
 
-    /* Subscription Pricing */
     .subscription-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -477,7 +456,6 @@
       color: white;
     }
 
-    /* Booking History */
     .booking-item {
       background: var(--color-surface);
       border-radius: var(--radius-md);
@@ -538,7 +516,6 @@
       color: var(--color-gold-dark);
     }
 
-    /* Profile Screen */
     .profile-header {
       background: linear-gradient(135deg, var(--color-gold-primary) 0%, var(--color-gold-dark) 100%);
       padding: var(--space-xl) var(--space-lg);
@@ -636,7 +613,6 @@
       color: var(--color-stone);
     }
 
-    /* Bottom Navigation */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -680,7 +656,6 @@
       font-weight: 500;
     }
 
-    /* Modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -732,7 +707,6 @@
       color: var(--color-stone);
     }
 
-    /* Subscription Options in Modal */
     .subscription-options {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -785,7 +759,6 @@
       margin-top: 8px;
     }
 
-    /* Toast */
     .toast {
       position: fixed;
       bottom: 100px;
@@ -806,7 +779,6 @@
       to { transform: translateX(-50%) translateY(0); opacity: 1; }
     }
 
-    /* Notification Drawer */
     .drawer {
       position: fixed;
       top: 0;
@@ -851,7 +823,6 @@
       background: rgba(198,163,79,0.1);
     }
 
-    /* Loading Skeleton */
     .skeleton {
       background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
       background-size: 200% 100%;
@@ -863,20 +834,17 @@
       100% { background-position: -200% 0; }
     }
 
-    /* Currency Symbol */
     .currency {
       font-size: 0.8em;
       margin-right: 2px;
     }
 
-    /* No Results */
     .no-results {
       text-align: center;
       padding: 40px var(--space-lg);
       color: var(--color-stone);
     }
 
-    /* Utility Classes */
     .hidden { display: none; }
     .mt-4 { margin-top: var(--space-md); }
     .mb-4 { margin-bottom: var(--space-md); }
@@ -1230,7 +1198,7 @@
       { id: 4, title: 'Reminder', message: 'Your car wash is tomorrow at 10:30 AM', time: '5 hours ago', read: true }
     ];
 
-    // Subscription Plans Data - FIXED WASH COUNTS
+    // Subscription Plans Data
     const plans = [
       {
         id: 1,
@@ -1312,25 +1280,17 @@
       renderNotifications();
       updateNotificationBadge();
       
-      // Set monthly as default selected in modal
       setTimeout(() => {
         selectSubscription('monthly');
       }, 100);
     }
 
-    // Render Plans with Search and Filter
     function renderPlans() {
       const container = document.getElementById('serviceCards');
-      
-      // Apply both filter and search
       let filtered = plans;
-      
-      // Apply category filter
       if (currentFilter !== 'all') {
         filtered = filtered.filter(p => p.category === currentFilter);
       }
-      
-      // Apply search
       if (searchTerm.trim() !== '') {
         const term = searchTerm.toLowerCase();
         filtered = filtered.filter(p => 
@@ -1339,12 +1299,10 @@
           p.features.some(f => f.toLowerCase().includes(term))
         );
       }
-      
       if (filtered.length === 0) {
         container.innerHTML = '<div class="no-results">✨ No plans found matching your search</div>';
         return;
       }
-      
       container.innerHTML = filtered.map(plan => `
         <div class="service-card" onclick="selectPlan(${plan.id})">
           ${plan.badge ? `<span class="card-badge">${plan.badge}</span>` : ''}
@@ -1354,7 +1312,6 @@
           <div class="card-title">${plan.name}</div>
           <div class="card-desc">${plan.description}</div>
           <div class="card-price">₵${plan.price} <small>/${plan.frequency}</small></div>
-          
           <div class="subscription-grid">
             <div class="sub-option" onclick="event.stopPropagation()">
               <div class="sub-frequency">Washes</div>
@@ -1365,7 +1322,6 @@
               <div class="sub-price">${plan.savings}%</div>
             </div>
           </div>
-
           <ul class="card-features">
             ${plan.features.slice(0, 2).map(f => `
               <li>
@@ -1381,13 +1337,11 @@
       `).join('');
     }
 
-    // Search Function
     function searchPlans() {
       searchTerm = document.getElementById('searchInput').value;
       renderPlans();
     }
 
-    // Get Plan Icon
     function getPlanIcon(category) {
       const icons = {
         single: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
@@ -1398,16 +1352,12 @@
       return icons[category] || icons.single;
     }
 
-    // Render Recent Subscriptions
     function renderRecentSubscriptions() {
       const container = document.getElementById('recentBookings');
       const recent = subscriptions.slice(0, 2);
-      
       container.innerHTML = recent.map(sub => `
         <div class="booking-item">
-          <div class="booking-icon">
-            ${getPlanIcon(sub.icon)}
-          </div>
+          <div class="booking-icon">${getPlanIcon(sub.icon)}</div>
           <div class="booking-details">
             <div class="booking-title">${sub.plan}</div>
             <div class="booking-meta">
@@ -1420,18 +1370,14 @@
       `).join('');
     }
 
-    // Render Subscriptions List
     function renderSubscriptionsList(filter = 'active') {
       const container = document.getElementById('bookingsList');
       const filtered = filter === 'active' ? subscriptions.filter(s => s.status === 'active') : 
                        filter === 'pending' ? subscriptions.filter(s => s.status === 'pending') :
                        subscriptions.filter(s => s.status === 'completed');
-      
       container.innerHTML = filtered.length ? filtered.map(sub => `
         <div class="booking-item">
-          <div class="booking-icon">
-            ${getPlanIcon(sub.icon)}
-          </div>
+          <div class="booking-icon">${getPlanIcon(sub.icon)}</div>
           <div class="booking-details">
             <div class="booking-title">${sub.plan}</div>
             <div class="booking-meta">
@@ -1444,7 +1390,6 @@
       `).join('') : '<div style="text-align: center; padding: 40px; color: var(--color-stone);">No subscriptions found</div>';
     }
 
-    // Render Notifications
     function renderNotifications() {
       const container = document.getElementById('notificationList');
       container.innerHTML = notifications.map(n => `
@@ -1456,20 +1401,18 @@
       `).join('');
     }
 
-    // Update Notification Badge
     function updateNotificationBadge() {
       const unread = notifications.filter(n => !n.read).length;
       document.getElementById('notificationBadge').textContent = unread;
     }
 
-    // Mark Notification Read
     function markNotificationRead(id) {
       notifications = notifications.map(n => n.id === id ? { ...n, read: true } : n);
       renderNotifications();
       updateNotificationBadge();
     }
 
-    // Screen Navigation - Always falls back to home
+    // Screen Navigation with History
     function showScreen(screenId) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(screenId).classList.add('active');
@@ -1482,6 +1425,12 @@
           (screenId === 'profileScreen' && index === 3)
         );
       });
+      
+      // Push to history
+      if (screenHistory[screenHistory.length - 1] !== screenId) {
+        screenHistory.push(screenId);
+        history.pushState({ screen: screenId }, '', `#${screenId}`);
+      }
     }
 
     // Filter Plans
@@ -1492,20 +1441,17 @@
       renderPlans();
     }
 
-    // Filter Bookings
     function filterBookings(filter) {
       document.querySelectorAll('#bookingsScreen .category-tab').forEach(tab => tab.classList.remove('active'));
       event.target.classList.add('active');
       renderSubscriptionsList(filter);
     }
 
-    // Select Plan
     function selectPlan(planId) {
       const plan = plans.find(p => p.id === planId);
       openBookingModal(plan.name);
     }
 
-    // Show All Plans
     function showAllPlans() {
       currentFilter = 'all';
       document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active'));
@@ -1513,30 +1459,20 @@
       renderPlans();
     }
 
-    // Subscription Selection in Modal
     function selectSubscription(type) {
       currentSubscription = type;
-      
-      // Update UI
       document.querySelectorAll('.sub-card').forEach(card => card.classList.remove('selected'));
       document.getElementById(`sub-${type}`).classList.add('selected');
-      
-      // Update price and wash display based on selection
       const planData = {
-        single: { price: 60, washes: '1 wash', desc: 'One-time' },
-        weekly: { price: 100, washes: '2 washes/week', desc: 'Weekly' },
-        biweekly: { price: 180, washes: '4 washes', desc: 'Bi-Weekly' },
-        monthly: { price: 350, washes: '8 washes/month', desc: 'Monthly' }
+        single: { price: 60, washes: '1 wash' },
+        weekly: { price: 100, washes: '2 washes/week' },
+        biweekly: { price: 180, washes: '4 washes' },
+        monthly: { price: 350, washes: '8 washes/month' }
       };
-      
       document.getElementById('modalTotalPrice').innerHTML = `₵${planData[type].price}`;
-      document.getElementById('washSummary').innerHTML = `
-        <span>Washes</span>
-        <span>${planData[type].washes}</span>
-      `;
+      document.getElementById('washSummary').innerHTML = `<span>Washes</span><span>${planData[type].washes}</span>`;
     }
 
-    // Booking Modal
     function openBookingModal(planName) {
       document.getElementById('modalServiceName').textContent = `Subscribe to ${planName}`;
       document.getElementById('bookingModal').classList.add('active');
@@ -1546,19 +1482,14 @@
       document.getElementById('bookingModal').classList.remove('active');
     }
 
-    // Open Booking Flow from FAB
     function openBookingFlow() {
       openBookingModal('Weekly Plan');
     }
 
-    // Confirm Booking
     function confirmBooking() {
       closeModal();
       showToast('Subscription activated! Check your notifications.');
-      
-      // Add notification
       const planNames = { single: 'Single Wash', weekly: 'Weekly Plan', biweekly: 'Bi-Weekly Plan', monthly: 'Monthly Plan' };
-      
       notifications.unshift({
         id: Date.now(),
         title: 'Subscription Activated',
@@ -1570,7 +1501,6 @@
       updateNotificationBadge();
     }
 
-    // Show Toast
     function showToast(message) {
       const toast = document.getElementById('toast');
       toast.textContent = message;
@@ -1580,7 +1510,6 @@
       }, 3000);
     }
 
-    // Toggle Notification Drawer
     function toggleDrawer() {
       document.getElementById('notificationDrawer').classList.toggle('open');
     }
@@ -1593,6 +1522,50 @@
         drawer.classList.remove('open');
       }
     });
+
+    // --- History Management for Back Button ---
+    let screenHistory = ['homeScreen']; // stack of screens
+
+    // Override showScreen to use history
+    const originalShowScreen = showScreen;
+    showScreen = function(screenId) {
+      originalShowScreen(screenId);
+      if (screenHistory[screenHistory.length - 1] !== screenId) {
+        screenHistory.push(screenId);
+        history.pushState({ screen: screenId }, '', `#${screenId}`);
+      }
+    };
+
+    // Handle back/forward
+    window.addEventListener('popstate', function(event) {
+      // If modal or drawer is open, close them first
+      if (document.getElementById('bookingModal').classList.contains('active')) {
+        closeModal();
+        event.preventDefault();
+        return;
+      }
+      if (document.getElementById('notificationDrawer').classList.contains('open')) {
+        toggleDrawer();
+        event.preventDefault();
+        return;
+      }
+
+      if (event.state && event.state.screen) {
+        // Navigate to the screen from history
+        originalShowScreen(event.state.screen);
+        // Update history stack (pop last)
+        if (screenHistory.length > 1) {
+          screenHistory.pop();
+        }
+      } else {
+        // If no state, go to home
+        originalShowScreen('homeScreen');
+        history.replaceState({ screen: 'homeScreen' }, '', '#homeScreen');
+      }
+    });
+
+    // Initial state
+    history.replaceState({ screen: 'homeScreen' }, '', '#homeScreen');
 
     // Initialize app
     setTimeout(initApp, 1000);
